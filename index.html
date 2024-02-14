@@ -4,62 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NOC Support Team Dashboard</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-        }
-
-        #dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            padding: 20px;
-        }
-
-        .card {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            text-align: center;
-        }
-
-        .card h2 {
-            color: #333;
-        }
-
-        .status {
-            margin-top: 10px;
-            padding: 8px;
-            border-radius: 3px;
-            font-weight: bold;
-        }
-
-        .status-ok {
-            background-color: #2ecc71;
-            color: #fff;
-        }
-
-        .status-warning {
-            background-color: #f39c12;
-            color: #fff;
-        }
-
-        .status-error {
-            background-color: #e74c3c;
-            color: #fff;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
@@ -74,7 +20,7 @@
 
         <div class="card">
             <h2>Network Traffic</h2>
-            <div class="status status-ok">Normal</div>
+            <canvas id="networkChart" width="200" height="200"></canvas>
         </div>
 
         <div class="card">
@@ -87,5 +33,7 @@
             <div class="status status-error">Critical</div>
         </div>
     </div>
+
+    <script src="app.js"></script>
 </body>
 </html>
