@@ -1,35 +1,44 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const path = require('path');
 
 const app = express();
 const port = 3000;
 
-let serverStatus = 'OK';
-let networkData = [10, 20, 15, 25, 30];
+// Connect to MongoDB (assuming MongoDB is running on default port 27017)
+mongoose.connect('mongodb://localhost:27017/dashboard', { useNewUrlParser: true, useUnifiedTopology: true });
+
+// Define MongoDB schema and model
+const metricSchema = new mongoose.Schema({
+    name: String,
+    status: String,
+});
+
+const Metric = mongoose.model('Metric', metricSchema);
 
 app.use(bodyParser.json());
 
-app.get('/api/server-status', (req, res) => {
-    res.json({ status: serverStatus });
-});
-
-app.post('/api/server-status', (req, res) => {
-    const { status } = req.body;
-    
-    if (status) {
-        serverStatus = status;
-        res.json({ message: 'Server status updated successfully' });
-    } else {
-        res.status(400).json({ error: 'Status is required in the request body' });
+// API to get all metrics
+app.get('/api/metrics', async (req, res) => {
+    try {
+        const metrics = await Metric.find();
+        res.json(metrics);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
-app.get('/api/network-traffic', (req, res) => {
-    res.json({ data: networkData });
+// API to add a new metric
+app.post('/api/metrics', async (req, res) => {
+    try {
+        const { name, status } = req.body;
+        const newMetric = new Metric({ name, status });
+        await newMetric.save();
+        res.json({ message: 'Metric added successfully' });
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 });
-
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
