@@ -3,58 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Circle with Data</title>
+    <title>Engineer Alert Tracker</title>
     <style>
         body {
-            margin: 0;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            margin: 20px;
         }
 
-        .circle-container {
-            perspective: 800px;
+        form {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        .circle {
-            position: relative;
-            width: 200px;
-            height: 200px;
-            background-color: #3498db;
-            border-radius: 50%;
-            transform-style: preserve-3d;
-            animation: rotateCircle 5s linear infinite;
-        }
-
-        .data-label {
-            position: absolute;
-            transform: translateZ(120px);
-            width: 100%;
+        h2 {
             text-align: center;
-            color: #ffffff;
+            color: #3498db;
         }
 
-        @keyframes rotateCircle {
-            from {
-                transform: rotateY(0);
-            }
-            to {
-                transform: rotateY(360deg);
-            }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
         }
     </style>
 </head>
 <body>
-    <div class="circle-container">
-        <div class="circle">
-            <div class="data-label" style="transform: rotateY(0deg);">Mohammed, 24</div>
-            <div class="data-label" style="transform: rotateY(90deg);">Ayed, 26</div>
-            <div class="data-label" style="transform: rotateY(180deg);">Ali, 25</div>
-            <div class="data-label" style="transform: rotateY(270deg);">Aziz, 30</div>
-        </div>
-    </div>
+    <h2>Engineer Alert Tracker</h2>
+    <form id="engineerForm">
+        <label for="engineerName">Engineer Name:</label>
+        <input type="text" id="engineerName" required>
+
+        <label for="alertsClosed">Number of Alerts Closed:</label>
+        <input type="number" id="alertsClosed" required>
+
+        <label for="timeWorked">Time Spent Working (hours):</label>
+        <input type="number" id="timeWorked" required>
+
+        <button type="button" onclick="addEngineer()">Add Engineer</button>
+    </form>
+
+    <h2>Engineer List</h2>
+    <ul id="engineerList"></ul>
+
+    <h2>Total Alerts Closed in One Week</h2>
+    <p id="totalAlerts"></p>
+
+    <script>
+        function addEngineer() {
+            const engineerName = document.getElementById("engineerName").value;
+            const alertsClosed = parseInt(document.getElementById("alertsClosed").value);
+            const timeWorked = parseInt(document.getElementById("timeWorked").value);
+
+            const engineerList = document.getElementById("engineerList");
+            const listItem = document.createElement("li");
+            listItem.textContent = `${engineerName} - Alerts Closed: ${alertsClosed}, Time Worked: ${timeWorked} hours`;
+            engineerList.appendChild(listItem);
+
+            updateTotalAlerts(alertsClosed);
+        }
+
+        function updateTotalAlerts(alertsClosed) {
+            const totalAlertsElement = document.getElementById("totalAlerts");
+            const currentTotal = parseInt(totalAlertsElement.textContent) || 0;
+            const newTotal = currentTotal + alertsClosed;
+            totalAlertsElement.textContent = `Total Alerts Closed in One Week: ${newTotal}`;
+        }
+    </script>
 </body>
 </html>
