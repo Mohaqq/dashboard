@@ -5,11 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Dashboard</title>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .dashboard {
+            width: 80%;
+            margin: 50px auto;
+        }
+    </style>
 </head>
 <body>
     <div class="dashboard">
-        <!-- Your dashboard content goes here -->
+        <h1 id="dataDisplay">Data will appear here</h1>
+        <button onclick="updateData()">Update Data</button>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
