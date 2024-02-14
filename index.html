@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -23,7 +23,24 @@
             border-radius: 50%;
             background-color: #3498db;
             transform: rotate(45deg);
-            transform-style: preserve-3d;
+            overflow: hidden;
+        }
+
+        .dashboard::before, .dashboard::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            background-color: #3498db;
+            border-radius: 50%;
+        }
+
+        .dashboard::before {
+            top: 0;
+        }
+
+        .dashboard::after {
+            bottom: 0;
         }
 
         #dataDisplay {
@@ -33,6 +50,7 @@
             transform: translate(-50%, -50%);
             text-align: center;
             color: #fff;
+            z-index: 1;
         }
 
         button {
