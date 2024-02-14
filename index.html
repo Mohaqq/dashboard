@@ -3,114 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TikTok-Like Example</title>
+    <title>NOC Support Team Dashboard</title>
     <style>
         body {
-            margin: 0;
-            overflow: hidden;
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
-        #video-container {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            overflow: hidden;
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
         }
 
-        video {
-            width: 100%;
-            height: auto;
-        }
-
-        #overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        #dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
             padding: 20px;
-            box-sizing: border-box;
         }
 
-        #actions {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        #like-btn, #comment-btn {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        #comment-input {
-            width: 70%;
-            padding: 8px;
-            border: 1px solid #ccc;
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd;
             border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card h2 {
+            color: #333;
+        }
+
+        .status {
+            margin-top: 10px;
+            padding: 8px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .status-ok {
+            background-color: #2ecc71;
+            color: #fff;
+        }
+
+        .status-warning {
+            background-color: #f39c12;
+            color: #fff;
+        }
+
+        .status-error {
+            background-color: #e74c3c;
+            color: #fff;
         }
     </style>
 </head>
 <body>
-    <div id="video-container">
-        <video id="video" controls loop>
-            <source src="example_video.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div id="overlay">
-            <div id="actions">
-                <div id="like-btn" onclick="toggleLike()">
-                    <span>&#10084;</span>
-                    <span id="like-count">0</span>
-                </div>
-                <div id="comment-btn" onclick="toggleCommentSection()">
-                    <span>&#128172;</span>
-                    <span id="comment-count">0</span>
-                </div>
-            </div>
-            <div id="comment-section" style="display: none;">
-                <input type="text" id="comment-input" placeholder="Add a comment...">
-                <button onclick="addComment()">Post</button>
-                <ul id="comment-list"></ul>
-            </div>
+    <header>
+        <h1>NOC Support Team Dashboard</h1>
+    </header>
+
+    <div id="dashboard">
+        <div class="card">
+            <h2>Server Status</h2>
+            <div class="status status-ok">OK</div>
+        </div>
+
+        <div class="card">
+            <h2>Network Traffic</h2>
+            <div class="status status-ok">Normal</div>
+        </div>
+
+        <div class="card">
+            <h2>Database Connection</h2>
+            <div class="status status-warning">Degraded</div>
+        </div>
+
+        <div class="card">
+            <h2>Firewall Logs</h2>
+            <div class="status status-error">Critical</div>
         </div>
     </div>
-
-    <script>
-        let isLiked = false;
-        let likeCount = 0;
-        let commentCount = 0;
-
-        function toggleLike() {
-            isLiked = !isLiked;
-            likeCount = isLiked ? likeCount + 1 : likeCount - 1;
-            document.getElementById("like-count").textContent = likeCount;
-        }
-
-        function toggleCommentSection() {
-            const commentSection = document.getElementById("comment-section");
-            commentSection.style.display = commentSection.style.display === "none" ? "flex" : "none";
-        }
-
-        function addComment() {
-            const commentInput = document.getElementById("comment-input");
-            const commentText = commentInput.value.trim();
-
-            if (commentText !== "") {
-                const commentList = document.getElementById("comment-list");
-                const listItem = document.createElement("li");
-                listItem.textContent = commentText;
-                commentList.appendChild(listItem);
-
-                commentInput.value = "";
-                commentCount++;
-                document.getElementById("comment-count").textContent = commentCount;
-            }
-        }
-    </script>
 </body>
 </html>
