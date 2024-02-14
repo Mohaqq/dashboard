@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="style.css">
     <title>Dashboard</title>
     <style>
-        /* Add your CSS styles here */
         body {
             margin: 0;
             padding: 0;
@@ -16,6 +15,17 @@
         .dashboard {
             width: 80%;
             margin: 50px auto;
+            text-align: center;
+        }
+
+        #dataDisplay {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 1em;
         }
     </style>
 </head>
@@ -25,6 +35,22 @@
         <button onclick="updateData()">Update Data</button>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Sample data (replace with your actual data)
+        const data = {
+            value1: 42,
+            value2: "Hello, Dashboard!",
+            // Add more data properties as needed
+        };
+
+        // Function to update data on the dashboard
+        function updateData() {
+            // Access the elements on the dashboard
+            const dataDisplayElement = document.getElementById("dataDisplay");
+
+            // Update the content with new data
+            dataDisplayElement.innerHTML = `Value 1: ${data.value1}<br>Value 2: ${data.value2}`;
+        }
+    </script>
 </body>
 </html>
